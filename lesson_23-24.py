@@ -12,7 +12,7 @@ data_txt = np.loadtxt('data/collins_switch.csv',
 # #slice out itpg and gfp.
 iptg = data_txt[:,0]
 gfp = data_txt[:,1]
-#
+
 #plot iptg vs gfp.
 plt.semilogx(iptg, gfp, linestyle='none',
                         marker='.', markersize=20)
@@ -24,8 +24,8 @@ plt.title('IPTG titration semilog X')
 
 plt.show()
 
-I made everything below this a comment becasue the plots werent
-    as good by using 'ctrl' '/'.
+#I made everything below this a comment becasue the plots werent
+    #as good by using 'ctrl' '/'.
 #plot iptg vs gfp
 plt.loglog(iptg, gfp, linestyle='none',
                         marker='.', markersize=20)
