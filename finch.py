@@ -45,6 +45,8 @@ df_2012 = df_2012.rename(columns={'blength' : 'beak length (mm)',
 # If you use pd.concat(), you will need to use the ignore_index=True kwarg.
 # Concatinating data (axis = one means turn into columns rather than rows)
 df_grant = pd.concat((df_1973, df_1975, df_1987, df_1991, df_2012), ignore_index=True)
+# This time the index is ignored becasue it is arbitary numbering but would mess up the merge.
+# IF they had indexed by the band name instead it would have been a different story....
 
 
 # Delete duplicate birds from the same year.
@@ -59,8 +61,10 @@ df_grant.to_csv('grant_combined.csv', index=False)
 # Plot an ECDF of the beak depths of Geospiza scandens from the same year. T
 # These ECDFs should be on the same plot. On another plot, plot ECDFs of beak
 # lengths for the two species in 1987. Do you see a striking phenotypic difference?
-fortis_1987dep = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='fortis'), ['beak depth (mm)']]
-scandens_1987dep = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='scandens'), ['beak depth (mm)']]
+fortis_1987dep = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='fortis'), 'beak depth (mm)']
+scandens_1987dep = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='scandens'), 'beak depth (mm)']
+# Bug: if you take out series (single column) you dont put [],
+# This is an example of a sematic error ....
 
 x_fortis87, y_fortis87 = bootcamp_utils.ecdf(fortis_1987dep)
 x_scan87, y_scan87 = bootcamp_utils.ecdf(scandens_1987dep)
@@ -74,8 +78,8 @@ x_scan87, y_scan87 = bootcamp_utils.ecdf(scandens_1987dep)
 
 # For the 1987 data, plot beak depth vs. beak width for Geospiza fortis as blue
 # dots, and for Geospiza scandens as red dots. Can you see the species demarcation?
-fortis_87len = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='fortis'), ['beak length (mm)']]
-scandens_87len = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='scandens'), ['beak length (mm)']]
+fortis_87len = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='fortis'), 'beak length (mm)']
+scandens_87len = df_grant.loc[(df_grant['year']==1987) & (df_grant['species']=='scandens'), 'beak length (mm)']
 
 plt.close()
 # plt.plot(fortis_1987dep, fortis_87len, marker='.', linestyle='none', alpha=0.5)
@@ -88,10 +92,10 @@ plt.close()
 # Do above again for all years. Describe what you see. Do you see the changes
 # in the differences between species (presumably as a result of hybridization)?
 # In your plots, make sure all plots have the same range on the axes.
-fortis_len = df_grant.loc[(df_grant['species']=='fortis'), ['beak length (mm)']]
-scandens_len = df_grant.loc[(df_grant['species']=='scandens'), ['beak length (mm)']]
-fortis_dep = df_grant.loc[(df_grant['species']=='fortis'), ['beak depth (mm)']]
-scandens_dep = df_grant.loc[(df_grant['species']=='scandens'), ['beak depth (mm)']]
+fortis_len = df_grant.loc[(df_grant['species']=='fortis'), 'beak length (mm)']
+scandens_len = df_grant.loc[(df_grant['species']=='scandens'), 'beak length (mm)']
+fortis_dep = df_grant.loc[(df_grant['species']=='fortis'), 'beak depth (mm)']
+scandens_dep = df_grant.loc[(df_grant['species']=='scandens'), 'beak depth (mm)']
 
 plt.plot(fortis_dep, fortis_len, marker='.', linestyle='none', alpha=0.5, markersize=15)
 plt.plot(scandens_dep, scandens_len, marker='.', linestyle='none', alpha=0.5, markersize=15)
