@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-def ecdf(data):
-    """Compute x, y values for emperical distributon function """
-    x = np.sort(data)
-    y = np.arange(1, 1+len(x)) / len(x)
-    return x, y
+import bootcamp_utils
+#
+# def ecdf(data):
+#     """Compute x, y values for emperical distributon function """
+#     x = np.sort(data)
+#     y = np.arange(1, 1+len(x)) / len(x)
+#     return x, y
 
 #Specificy parameters.
 # Number of generations.
@@ -62,8 +63,8 @@ print('rm mean', np.mean(rm_samples))
 print('rm std', np.std(rm_samples))
 print('rm Fano', np.var(rm_samples) / np.mean(rm_samples))
 
-x_ai, y_ai = ecdf(ai_samples)
-x_rm, y_rm = ecdf(rm_samples)
+x_ai, y_ai = bootcamp_utils.ecdf(ai_samples)
+x_rm, y_rm = bootcamp_utils.ecdf(rm_samples)
 
 plt.semilogx(x_ai, y_ai, marker='.', linestyle='none')
 plt.semilogx(x_rm, y_rm, marker='.', linestyle='none')

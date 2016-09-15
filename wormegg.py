@@ -10,6 +10,7 @@ import pandas as pd
 df_high = pd.read_csv('data/xa_high_food.csv', comment='#', header=None)
 df_low = pd.read_csv('data/xa_low_food.csv', comment='#', header=None)
 
+# Add a header to the top of each column
 df_high.columns = ['high']
 df_low.columns = ['low']
 
